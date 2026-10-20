@@ -117,8 +117,8 @@ var PROGRAM_CATALOG = [
   { code: 'Wed B 730', value: 'Wednesday BEG (Edmonds) 7:30-9:00 PM', label: 'Wednesday · Beginner · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Beg', shortLabel: 'Wed Beg 730-9' },
   { code: 'Wed FF L 6', value: 'Wednesday FF (Lochdale) 6:00-7:30 PM', label: 'Wednesday · Foundation Focus · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed FF', shortLabel: 'Wed FF 6-730' },
   { code: 'Wed FF L 730', value: 'Wednesday FF (Lochdale) 7:30-9:00 PM', label: 'Wednesday · Foundation Focus · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed FF', shortLabel: 'Wed FF 730-9' },
-  { code: 'Thu I 6', value: 'Thursday INT (Lochdale) 6:00-7:30 PM', label: 'Thursday · Intermediate · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; extension date TBA)', column: 'Thu Int', shortLabel: 'Thu Int 6-730' },
-  { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; extension date TBA)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' }
+  { code: 'Thu I 6', value: 'Thursday INT (Lochdale) 6:00-7:30 PM', label: 'Thursday · Intermediate · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu Int', shortLabel: 'Thu Int 6-730' },
+  { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' }
   // Richmond Tue FF and Thu Women's Int are not confirmed yet, so they have
   // no selectable slots on the page. Add their entries here when they open
   // (Richmond: 6:00-7:45 / 7:45-9:30 PM, $295 GST Included).
