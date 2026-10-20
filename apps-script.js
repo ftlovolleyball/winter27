@@ -102,7 +102,7 @@ var VERIFY_RESEND_COOLDOWN_SECONDS = 30;  // minimum gap between resend requests
 // deterrent against casual/non-member visitors, the page remembers a pass
 // for ACCESS_OK_TTL_SECONDS in the browser's localStorage, so it's only
 // asked once per 3-hour window, only on the first page load.
-var ACCESS_PASSWORD = 'skyb@ll';
+var ACCESS_PASSWORD = 'CHANGE_ME'; // set the real value only in the Apps Script editor, never commit it
 var ACCESS_OK_TTL_SECONDS = 10800; // 3 hours
 
 // ── PROGRAM CATALOG ───────────────────────────────────────────────────────

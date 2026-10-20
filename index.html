@@ -694,7 +694,8 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
      entered. Visible by default (no JS flash of real content); a small
      inline script right below removes it immediately if the browser
      already has a valid pass from within the last 3 hours. Password is
-     checked server-side (action=checkAccess) rather than hardcoded here. -->
+     checked server-side (action=checkAccess), or against DEMO_PASSWORD_SHA256
+     while DEMO_MODE is on. -->
 <div id="accessGate" style="position:fixed;inset:0;z-index:99999;background:var(--teal-dark);display:flex;align-items:center;justify-content:center;padding:1.5rem;">
   <div style="background:#fff;border-radius:var(--radius-lg);padding:2rem 1.75rem;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.35);">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">FTLO Members Only</div>
@@ -887,6 +888,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
       <div>
         <div class="card-title">Verify Your Email</div>
         <div class="card-sub">We sent a 6-digit code to <strong id="verifyEmailAddr"></strong>. Enter it below to continue &mdash; this keeps fake or mistyped emails off our list.</div>
+        <div class="demo-only" style="display:none;margin-top:6px;font-size:13px;font-weight:700;color:var(--teal);">Preview mode: no email is sent, enter any 6 digits (e.g. 123456).</div>
       </div>
     </div>
     <div class="field" id="f-verifyCode">
@@ -1765,6 +1767,53 @@ var usedEmails = [];
 // useful until it's swapped.
 var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3V_4F4r7Z118884dACi0bT9ynnM73TH5pjW1SW6TX9s8BVEhAqX75aqzS_MpQ_pSzSQ/exec';
 
+// ── DEMO MODE ─────────────────────────────────────────────────────────────
+// While true, the page never contacts Apps Script: every backend call is
+// answered locally with a fake success, so the form can be clicked through
+// end to end as a preview without anything landing in the sheet or any
+// email going out. The access password is checked in the browser against
+// DEMO_PASSWORD_SHA256 instead of server-side. That's a deterrent only,
+// the page source (programs, prices) is still readable by anyone who
+// opens it. Set to false for the real launch.
+var DEMO_MODE = true;
+var DEMO_PASSWORD_SHA256 = 'de6b82855ccf4a9ac3da1a81e2ff1e5760977702bc8b28054e7c89b069205926';
+
+function sha256Hex(text) {
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function(buf) {
+    return Array.prototype.map.call(new Uint8Array(buf), function(b) {
+      return ('0' + b.toString(16)).slice(-2);
+    }).join('');
+  });
+}
+
+if (DEMO_MODE) {
+  // Intercept fetch() for the Apps Script URL only and fake each action's
+  // response, so none of the call sites below need demo-specific branches.
+  var realFetch = window.fetch.bind(window);
+  window.fetch = function(url, opts) {
+    if (typeof url !== 'string' || url.indexOf(APPS_SCRIPT_URL) !== 0) return realFetch(url, opts);
+    var params = new URLSearchParams(url.split('?')[1] || '');
+    var action = params.get('action');
+    var reply = action === 'checkAccess'
+      ? sha256Hex(params.get('password') || '').then(function(h) { return { valid: h === DEMO_PASSWORD_SHA256 }; })
+      : Promise.resolve({
+          checkEmail: { exists: false },
+          sendVerificationCode: { status: 'ok' },
+          verifyCode: { verified: true },
+          markStarted: { status: 'ok' }
+        }[action] || { status: 'ok' });
+    return reply.then(function(json) {
+      return new Promise(function(resolve) {
+        // Short delay so buttons show their "Checking..." states like the real thing.
+        setTimeout(function() { resolve(new Response(JSON.stringify(json))); }, 600);
+      });
+    });
+  };
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.demo-only').forEach(function(el) { el.style.display = 'block'; });
+  });
+}
+
 function submitAccessPassword() {
   var input = document.getElementById('accessPasswordInput');
   var btn = document.getElementById('accessSubmitBtn');
@@ -2126,6 +2175,11 @@ function submitForm() {
   document.getElementById('submitErrorNotice').style.display = 'none';
 
   var data = collectData();
+
+  if (DEMO_MODE) {
+    setTimeout(function() { handleSubmitResponse(JSON.stringify({ status: 'ok' })); }, 1200);
+    return;
+  }
 
   // Use XMLHttpRequest - most compatible with Google Apps Script
   var xhr = new XMLHttpRequest();
