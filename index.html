@@ -1740,6 +1740,11 @@ var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3V_4F4r7Z118884
 // the page source (programs, prices) is still readable by anyone who
 // opens it. Set to false for the real launch.
 var DEMO_MODE = true;
+// Off for the demo so testers go straight from Contact to the quiz. The
+// live Apps Script rejects submissions from unverified emails
+// (reason: not_verified), so turn this back on before launch unless that
+// check is removed server-side too.
+var REQUIRE_EMAIL_VERIFICATION = false;
 var DEMO_PASSWORD_SHA256 = 'de6b82855ccf4a9ac3da1a81e2ff1e5760977702bc8b28054e7c89b069205926';
 
 function sha256Hex(text) {
@@ -2254,6 +2259,11 @@ function checkEmailThenNext() {
         btn.disabled = false;
         btn.innerHTML = STEP1_BTN_LABEL;
         markErr('f-email', 'This email has already been submitted. Each person may only apply once. Please contact info@ftlovolleyball.ca if you need help.');
+      } else if (!REQUIRE_EMAIL_VERIFICATION) {
+        btn.disabled = false;
+        btn.innerHTML = STEP1_BTN_LABEL;
+        markApplicationStarted();
+        showStep(2);
       } else {
         startEmailVerification(email);
       }
@@ -2262,6 +2272,13 @@ function checkEmailThenNext() {
       // Duplicate check itself failed to reach the server - still require
       // verification below rather than silently letting an unverified
       // email straight through.
+      if (!REQUIRE_EMAIL_VERIFICATION) {
+        btn.disabled = false;
+        btn.innerHTML = STEP1_BTN_LABEL;
+        markApplicationStarted();
+        showStep(2);
+        return;
+      }
       startEmailVerification(email);
     });
 }
