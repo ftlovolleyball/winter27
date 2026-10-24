@@ -118,11 +118,11 @@ var PROGRAM_CATALOG = [
   { code: 'Wed FF L 6', value: 'Wednesday FF (Lochdale) 6:00-7:30 PM', label: 'Wednesday · Foundation Focus · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed FF', shortLabel: 'Wed FF 6-730' },
   { code: 'Wed FF L 730', value: 'Wednesday FF (Lochdale) 7:30-9:00 PM', label: 'Wednesday · Foundation Focus · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed FF', shortLabel: 'Wed FF 730-9' },
   { code: 'Thu I 6', value: 'Thursday INT (Lochdale) 6:00-7:30 PM', label: 'Thursday · Intermediate · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 6-730' },
-  { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' }
-  // Richmond Tue FF and Thu Women's Int are not confirmed yet, so they have
-  // no selectable slots on the page. Add their entries here when they open
-  // (Richmond: 6:00-7:45 / 7:45-9:30 PM, $295 GST Included; Thu Women's Int
-  // dates: 9 Thursdays · Jan 7 – Mar 4, possible ext. to Mar 11).
+  { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' },
+  { code: 'Tue FF R 6', value: 'Tuesday FF (McKinney) 6:00-7:45 PM', label: 'Tuesday · Foundation Focus · McKinney · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'RICH. Tue FF 6-745' },
+  { code: 'Tue FF R 745', value: 'Tuesday FF (McKinney) 7:45-9:30 PM', label: 'Tuesday · Foundation Focus · McKinney · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'RICH. Tue FF 745-930' },
+  { code: 'Thu IW 6', value: 'Thursday WOMENS INT (Whiteside) 6:00-7:45 PM', label: 'Thursday · Women\'s Intermediate · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: "Thu Women's Int", shortLabel: 'Thu Wmn Int 6-745' },
+  { code: 'Thu IW 745', value: 'Thursday WOMENS INT (Whiteside) 7:45-9:30 PM', label: 'Thursday · Women\'s Intermediate · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: "Thu Women's Int", shortLabel: 'Thu Wmn Int 745-930' }
 ];
 
 // The sheet columns, one per program card, in the order they should appear.

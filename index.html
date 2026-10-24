@@ -1127,18 +1127,16 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
       <div class="acc-wrap">
 
-        <!-- TUESDAY FOUNDATION FOCUS: Edmonds (Burnaby) confirmed. Richmond slots are
-             placeholders ("Program not available yet") until the gym is confirmed,
-             copy an Edmonds slot's markup to make them selectable. -->
+        <!-- TUESDAY FOUNDATION FOCUS: Edmonds (Burnaby) and McKinney (Richmond) -->
         <div class="acc-block ff-acc" id="acc-tue-ff">
           <div class="acc-hdr" onclick="accToggle('acc-tue-ff')">
             <div class="acc-tag">FF</div>
             <div class="acc-meta">
               <div class="acc-title-row"><span class="acc-title">Tuesday &middot; Foundation Focus: Pass &amp; Attack</span></div>
-              <div class="acc-subdesc">Edmonds Community School, Burnaby, BC &middot; $255 GST Included &middot; <em>Richmond, BC not confirmed yet</em></div>
+              <div class="acc-subdesc">Edmonds Community School, Burnaby, BC ($255) &amp; McKinney Elementary, Richmond, BC ($295) &middot; GST Included</div>
             </div>
             <div class="acc-right">
-              <span class="acc-pill">2 time slots</span>
+              <span class="acc-pill">4 time slots</span>
               <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
             </div>
           </div>
@@ -1178,20 +1176,20 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
                 </label>
               </div>
 
-              <div style="font-size:12.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#5a3a8c;margin:10px 0 2px;">Richmond, BC &middot; Not confirmed yet &middot; $295 GST Included</div>
+              <div style="font-size:12.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#5a3a8c;margin:10px 0 2px;">McKinney Elementary, Richmond, BC &middot; $295 GST Included</div>
               <div class="acc-slots-grid">
-                <label class="acc-prog unavailable" aria-disabled="true">
-                  <div class="acc-cb"></div>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Tuesday FF (McKinney) 6:00-7:45 PM" data-code="Tue FF R 6" data-label="Tuesday &middot; Foundation Focus &middot; McKinney &middot; 6:00&ndash;7:45 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
-                    <div class="acc-unavail-msg">Program not available yet</div>
                   </div>
                 </label>
-                <label class="acc-prog unavailable" aria-disabled="true">
-                  <div class="acc-cb"></div>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Tuesday FF (McKinney) 7:45-9:30 PM" data-code="Tue FF R 745" data-label="Tuesday &middot; Foundation Focus &middot; McKinney &middot; 7:45&ndash;9:30 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
-                    <div class="acc-unavail-msg">Program not available yet</div>
                   </div>
                 </label>
               </div>
@@ -1337,17 +1335,16 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           </div>
         </div>
 
-        <!-- THURSDAY WOMEN'S INT: Richmond not confirmed yet, slots are placeholders
-             ("Program not available yet") until the gym is confirmed. -->
+        <!-- THURSDAY WOMEN'S INT: Whiteside (Richmond) -->
         <div class="acc-block wmn-acc" id="acc-thu-wmn">
           <div class="acc-hdr" onclick="accToggle('acc-thu-wmn')">
             <div class="acc-tag">WMN</div>
             <div class="acc-meta">
               <div class="acc-title-row"><span class="acc-title">Thursday &middot; Women's Intermediate</span></div>
-              <div class="acc-subdesc">Women's only &middot; Richmond, BC &middot; $295 GST Included &middot; <em>Not confirmed yet</em></div>
+              <div class="acc-subdesc">Women's only &middot; Whiteside Elementary, Richmond, BC &middot; $295 GST Included</div>
             </div>
             <div class="acc-right">
-              <span class="acc-pill">Not available yet</span>
+              <span class="acc-pill">2 time slots</span>
               <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
             </div>
           </div>
@@ -1369,18 +1366,18 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
               <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
               <div class="acc-dates">9 Thursdays &middot; Jan 7 &ndash; Mar 4 &middot; Possible ext. to Mar 11</div>
               <div class="acc-slots-grid">
-                <label class="acc-prog unavailable" aria-disabled="true">
-                  <div class="acc-cb"></div>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Thursday WOMENS INT (Whiteside) 6:00-7:45 PM" data-code="Thu IW 6" data-label="Thursday &middot; Women's Intermediate &middot; 6:00&ndash;7:45 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
-                    <div class="acc-unavail-msg">Program not available yet</div>
                   </div>
                 </label>
-                <label class="acc-prog unavailable" aria-disabled="true">
-                  <div class="acc-cb"></div>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Thursday WOMENS INT (Whiteside) 7:45-9:30 PM" data-code="Thu IW 745" data-label="Thursday &middot; Women's Intermediate &middot; 7:45&ndash;9:30 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
-                    <div class="acc-unavail-msg">Program not available yet</div>
                   </div>
                 </label>
               </div>
