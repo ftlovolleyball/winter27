@@ -102,7 +102,7 @@ var VERIFY_RESEND_COOLDOWN_SECONDS = 30;  // minimum gap between resend requests
 // deterrent against casual/non-member visitors, the page remembers a pass
 // for ACCESS_OK_TTL_SECONDS in the browser's localStorage, so it's only
 // asked once per 3-hour window, only on the first page load.
-var ACCESS_PASSWORD = 'skyb@ll';
+var ACCESS_PASSWORD = 'CHANGE_ME'; // set the real value only in the Apps Script editor, never commit it
 var ACCESS_OK_TTL_SECONDS = 10800; // 3 hours
 
 // ── PROGRAM CATALOG ───────────────────────────────────────────────────────
@@ -111,24 +111,22 @@ var ACCESS_OK_TTL_SECONDS = 10800; // 3 hours
 // the confirmation email, and to resolve the applicant's priority codes
 // back into full program details.
 var PROGRAM_CATALOG = [
-  { code: 'Tue B 6',    value: 'Tuesday BEG 6:00-7:45 PM',                   label: 'Tuesday · Beginner · 6:00–7:45 PM',                 price: '$295 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue Beg',        shortLabel: 'Tue Beg 6-745' },
-  { code: 'Tue B 745',  value: 'Tuesday BEG 7:45-9:30 PM',                   label: 'Tuesday · Beginner · 7:45–9:30 PM',                 price: '$295 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue Beg',        shortLabel: 'Tue Beg 745-930' },
-  { code: 'Wed B 6',    value: 'Wednesday BEG (Richmond) 6:00-7:45 PM',       label: 'Wednesday · Beginner · 6:00–7:45 PM',               price: '$295 GST Included', dates: '9 Wednesdays · Sep 16 – Nov 25 (no clinic Sep 30 & Nov 11; ext. to Dec 9 if needed)',           column: 'Wed Beg',        shortLabel: 'Wed Beg 6-745' },
-  { code: 'Wed B 730',  value: 'Wednesday BEG (Richmond) 7:45-9:30 PM',       label: 'Wednesday · Beginner · 7:45–9:30 PM',               price: '$295 GST Included', dates: '9 Wednesdays · Sep 16 – Nov 25 (no clinic Sep 30 & Nov 11; ext. to Dec 9 if needed)',           column: 'Wed Beg',        shortLabel: 'Wed Beg 745-930' },
-  { code: 'Tue FF R 6',   value: 'Tuesday FF (Richmond) 6:00-7:45 PM',       label: 'Tuesday · Foundation Focus · Richmond · 6:00–7:45 PM',       price: '$295 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue FF',         shortLabel: 'RICH. Tue FF 6-745' },
-  { code: 'Tue FF R 745', value: 'Tuesday FF (Richmond) 7:45-9:30 PM',       label: 'Tuesday · Foundation Focus · Richmond · 7:45–9:30 PM',       price: '$295 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue FF',         shortLabel: 'RICH. Tue FF 745-930' },
-  { code: 'Tue FF B 6',   value: 'Tuesday FF (South Burnaby) 6:00-7:30 PM',  label: 'Tuesday · Foundation Focus · South Burnaby · 6:00–7:30 PM',  price: '$255 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue FF',         shortLabel: 'BURN. Tue FF 6-730' },
-  { code: 'Tue FF B 730', value: 'Tuesday FF (South Burnaby) 7:30-9:00 PM',  label: 'Tuesday · Foundation Focus · South Burnaby · 7:30–9:00 PM',  price: '$255 GST Included', dates: '9 Tuesdays · Sep 15 – Nov 10 (ext. to Nov 24 if needed)',                                       column: 'Tue FF',         shortLabel: 'BURN. Tue FF 730-9' },
-  { code: 'Wed I 6',    value: 'Wednesday INT (Lochdale) 6:00-7:30 PM',      label: 'Wednesday · Intermediate · 6:00–7:30 PM',           price: '$255 GST Included', dates: '9 Wednesdays · Sep 16 – Nov 25 (no clinic Sep 30 & Nov 11; ext. to Dec 9 if needed)',           column: 'Wed Int',        shortLabel: 'Wed Int 6-730' },
-  { code: 'Wed I 730',  value: 'Wednesday INT (Lochdale) 7:30-9:00 PM',      label: 'Wednesday · Intermediate · 7:30–9:00 PM',           price: '$255 GST Included', dates: '9 Wednesdays · Sep 16 – Nov 25 (no clinic Sep 30 & Nov 11; ext. to Dec 9 if needed)',           column: 'Wed Int',        shortLabel: 'Wed Int 730-9' },
-  { code: 'Thu I 6',    value: 'Thursday INT (Lochdale) 6:00-7:30 PM',       label: 'Thursday · Intermediate · 6:00–7:30 PM',            price: '$255 GST Included', dates: '9 Thursdays · Sep 17 – Nov 12 (ext. to Nov 26 if needed)',                                     column: 'Thu Int',        shortLabel: 'Thu Int 6-730' },
-  { code: 'Thu I 730',  value: 'Thursday INT (Lochdale) 7:30-9:00 PM',       label: 'Thursday · Intermediate · 7:30–9:00 PM',            price: '$255 GST Included', dates: '9 Thursdays · Sep 17 – Nov 12 (ext. to Nov 26 if needed)',                                     column: 'Thu Int',        shortLabel: 'Thu Int 730-9' },
-  { code: 'Thu IW 6',   value: 'Thursday WOMENS INT (Richmond) 6:00-7:45 PM', label: 'Thursday · Women\'s Intermediate · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Thursdays · Sep 17 – Nov 12 (ext. to Nov 26 if needed)',                                     column: "Thu Women's Int", shortLabel: 'Thu Wmn Int 6-745' },
-  { code: 'Thu IW 745', value: 'Thursday WOMENS INT (Richmond) 7:45-9:30 PM', label: 'Thursday · Women\'s Intermediate · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Thursdays · Sep 17 – Nov 12 (ext. to Nov 26 if needed)',                                     column: "Thu Women's Int", shortLabel: 'Thu Wmn Int 745-930' }
+  { code: 'Tue B 6', value: 'Tuesday BEG (McKinney) 6:00-7:45 PM', label: 'Tuesday · Beginner · McKinney · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue Beg', shortLabel: 'Tue Beg 6-745' },
+  { code: 'Tue B 745', value: 'Tuesday BEG (McKinney) 7:45-9:30 PM', label: 'Tuesday · Beginner · McKinney · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue Beg', shortLabel: 'Tue Beg 745-930' },
+  { code: 'Tue FF E 6', value: 'Tuesday FF (Edmonds) 6:00-7:30 PM', label: 'Tuesday · Foundation Focus · Edmonds · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'Tue FF 6-730' },
+  { code: 'Tue FF E 730', value: 'Tuesday FF (Edmonds) 7:30-9:00 PM', label: 'Tuesday · Foundation Focus · Edmonds · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'Tue FF 730-9' },
+  { code: 'Wed B 6', value: 'Wednesday BEG (Edmonds) 6:00-7:30 PM', label: 'Wednesday · Beginner · Edmonds · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Beg', shortLabel: 'Wed Beg 6-730' },
+  { code: 'Wed B 730', value: 'Wednesday BEG (Edmonds) 7:30-9:00 PM', label: 'Wednesday · Beginner · Edmonds · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Beg', shortLabel: 'Wed Beg 730-9' },
+  { code: 'Wed I 6', value: 'Wednesday INT (Lochdale) 6:00-7:30 PM', label: 'Wednesday · Intermediate · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Int', shortLabel: 'Wed Int 6-730' },
+  { code: 'Wed I 730', value: 'Wednesday INT (Lochdale) 7:30-9:00 PM', label: 'Wednesday · Intermediate · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Int', shortLabel: 'Wed Int 730-9' },
+  { code: 'Thu FF 6', value: 'Thursday FF (Whiteside) 6:00-7:45 PM', label: 'Thursday · Foundation Focus · Whiteside · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu FF', shortLabel: 'Thu FF 6-745' },
+  { code: 'Thu FF 745', value: 'Thursday FF (Whiteside) 7:45-9:30 PM', label: 'Thursday · Foundation Focus · Whiteside · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu FF', shortLabel: 'Thu FF 745-930' },
+  { code: 'Thu I 6', value: 'Thursday INT (Lochdale) 6:00-7:30 PM', label: 'Thursday · Intermediate · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 6-730' },
+  { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' }
 ];
 
-// The 6 sheet columns, one per program card, in the order they should appear.
-var PROGRAM_COLUMNS = ['Tue Beg', 'Wed Beg', 'Tue FF', 'Wed Int', 'Thu Int', "Thu Women's Int"];
+// The sheet columns, one per program card, in the order they should appear.
+var PROGRAM_COLUMNS = ['Tue Beg', 'Tue FF', 'Wed Beg', 'Wed Int', 'Thu FF', 'Thu Int'];
 
 function doPost(e) {
   var data = JSON.parse(e.postData.contents);
@@ -374,7 +372,7 @@ function sendVerificationCodeEmail(toEmail, code) {
     '</div>',
 
     '<div style="background:#fff;border:1px solid #e0e0e0;border-top:none;padding:26px 28px;">',
-      '<p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#333;">Enter this code on the Fall 2026 clinic application to confirm this is your email address:</p>',
+      '<p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#333;">Enter this code on the Winter 2027 clinic application to confirm this is your email address:</p>',
       '<div style="text-align:center;margin:22px 0;">',
         '<span style="display:inline-block;font-family:\'Barlow Condensed\',Arial,sans-serif;font-size:38px;font-weight:900;letter-spacing:0.15em;color:#1F4049;background:#f7f7f7;border:1px solid #e0e0e0;border-radius:8px;padding:14px 26px;">' + code + '</span>',
       '</div>',
@@ -489,7 +487,7 @@ function installReminderTrigger() {
 }
 
 function sendReminderEmail(toEmail, firstName) {
-  var subject = "Don't forget to finish your FTLO Fall Clinic application";
+  var subject = "Don't forget to finish your FTLO Winter Clinic application";
   var greetingName = firstName ? firstName : 'there';
   var formUrl = 'https://ftlovolleyball.github.io/fall26/';
 
@@ -498,13 +496,13 @@ function sendReminderEmail(toEmail, firstName) {
 
     '<div style="background:#1F4049;padding:22px 28px;border-radius:8px 8px 0 0;">',
       '<p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F8BA44;">FTLO Volleyball</p>',
-      '<h1 style="margin:0;font-size:19px;line-height:1.3;color:#FFF9F5;">Still want to join us this Fall?</h1>',
+      '<h1 style="margin:0;font-size:19px;line-height:1.3;color:#FFF9F5;">Still want to join us this Winter?</h1>',
     '</div>',
 
     '<div style="background:#fff;border:1px solid #e0e0e0;border-top:none;padding:24px 28px;">',
       '<p style="margin:0 0 14px;font-size:15px;line-height:1.65;color:#333;">',
         'Hi ' + greetingName + ',<br><br>',
-        'We noticed you started an application for FTLO\'s Fall 2026 clinic programs but haven\'t submitted it yet.',
+        'We noticed you started an application for FTLO\'s Winter 2027 clinic programs but haven\'t submitted it yet.',
       '</p>',
       '<p style="margin:0 0 20px;font-size:15px;line-height:1.65;color:#333;">',
         'If you have any questions, just reply to this email or reach out to ',
@@ -533,20 +531,20 @@ function sendApplicationConfirmationEmail(data, serverTimestamp) {
   var fullName = ((data.firstName || '') + ' ' + (data.lastName || '')).trim();
   var toEmail = data.email;
 
-  var subject = "FTLO '26 Fall Clinics - " + fullName + ' Application Received';
+  var subject = "FTLO '27 Winter Clinics - " + fullName + ' Application Received';
 
   var html = [
     '<div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;color:#222;">',
 
     '<div style="background:#1F4049;padding:24px 28px;border-radius:8px 8px 0 0;">',
       '<p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F8BA44;">FTLO Volleyball</p>',
-      '<h1 style="margin:0;font-size:22px;line-height:1.25;color:#FFF9F5;">Fall 2026 Clinic Program<br>Application Received</h1>',
+      '<h1 style="margin:0;font-size:22px;line-height:1.25;color:#FFF9F5;">Winter 2027 Clinic Program<br>Application Received</h1>',
     '</div>',
 
     '<div style="background:#fff3e0;border-left:5px solid #e65100;padding:22px 28px;">',
       '<p style="margin:0;font-size:15px;line-height:1.65;color:#333;">',
         'Hi <strong>' + fullName + '</strong>,<br><br>',
-        'Thanks for applying to FTLO\'s Fall 2026 clinic programs! ',
+        'Thanks for applying to FTLO\'s Winter 2027 clinic programs! ',
         'This confirms we received your application, but it does not confirm your registered training spot. ',
         'FTLO will review applications and follow up by email with payment invite instructions if a spot is available.',
       '</p>',

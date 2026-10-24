@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 FTLO Fall Clinic Program Application</title>
+<meta name="robots" content="noindex, nofollow">
+<title>FTLO Winter 2027 Programs</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -463,6 +464,9 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 .ff-acc    .acc-prog.sel .acc-cb { background: #6a4a9c; border-color: #6a4a9c; }
 .int-acc   .acc-prog.sel .acc-cb { background: #c8860a; border-color: #c8860a; }
 .wmn-acc   .acc-prog.sel .acc-cb { background: #1a6a8a; border-color: #1a6a8a; }
+.acc-prog.unavailable, .acc-prog.unavailable:hover { cursor: not-allowed; background: var(--gray-100); border-color: rgba(0,0,0,0.07); opacity: 0.7; }
+.acc-prog.unavailable:active { transform: none; }
+.acc-unavail-msg { font-size: 12px; font-weight: 700; color: var(--gray-500); margin-top: 2px; }
 .acc-cb-tick { display: none; color: #fff; font-size: 12px; font-weight: 900; }
 .acc-prog.sel .acc-cb-tick { display: block; }
 .acc-prog-body { flex: 1; min-width: 0; }
@@ -693,7 +697,8 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
      entered. Visible by default (no JS flash of real content); a small
      inline script right below removes it immediately if the browser
      already has a valid pass from within the last 3 hours. Password is
-     checked server-side (action=checkAccess) rather than hardcoded here. -->
+     checked server-side (action=checkAccess), or against DEMO_PASSWORD_SHA256
+     while DEMO_MODE is on. -->
 <div id="accessGate" style="position:fixed;inset:0;z-index:99999;background:var(--teal-dark);display:flex;align-items:center;justify-content:center;padding:1.5rem;">
   <div style="background:#fff;border-radius:var(--radius-lg);padding:2rem 1.75rem;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.35);">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">FTLO Members Only</div>
@@ -734,10 +739,10 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
   <div class="hero-deco2"></div>
   <div class="hero-inner">
     <div class="hero-panel">
-      <div class="hero-eyebrow">2026 Fall Season &middot; Adults 18+</div>
-      <h1>Fall Clinic Program<br><span>Application</span></h1>
+      <div class="hero-eyebrow">2027 Winter Season &middot; Adults 18+</div>
+      <h1>Winter 2027<br><span>Programs</span></h1>
       <p style="color:rgba(255,249,245,0.85);font-size:15px;max-width:520px;line-height:1.6;">
-        FTLO is BACK for Fall 2026 with our flagship Beginner and Intermediate training sessions :) and TWO new programs &mdash; Women's Intermediate Only and Foundation Focus clinic. Join us for 9 dedicated sessions of volleyball training indoors! Fall season facility reservations, especially during the week, have been challenging, so please respond as soon as you know your availability. Those who know FTLO know what we're about when we get together.
+        Get ready for Winter 2027 volleyball training with FTLO. Explore Beginner, Foundation Focus, and Intermediate clinics below. Program dates, locations, fees, and availability will be confirmed before registration opens.
       </p>
       <p style="color:rgba(255,249,245,0.85);font-size:15px;max-width:520px;line-height:1.6;margin-top:0.75rem;">
         <strong style="color:var(--orange);">This is an application, not a confirmed spot.</strong> FTLO will follow up by email with a payment invite once your spot is confirmed.
@@ -786,9 +791,9 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
     <div>
       <strong>Registration Timeline:</strong>
       <ul style="margin:6px 0 0 18px;padding:0;">
-        <li>First Round applicants will be contacted after <strong>July 20</strong> to pay and accept their training spot.</li>
-        <li>Public invitation to apply opens after <strong>July 23</strong>.</li>
-        <li>Second Round registration payment invites go out after <strong>July 24, 2026</strong>.</li>
+        <li>First Round applicants will be contacted before <strong>November 3</strong> to pay and accept their training spot.</li>
+        <li>Second Round registration payment invites go out before <strong>November 12, 2026</strong>.</li>
+        <li>Other timelines to be announced.</li>
         <li>Waitlisted applicants will be contacted when a spot becomes available.</li>
       </ul>
     </div>
@@ -818,7 +823,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
     <div class="field" id="f-email">
       <label class="lbl">Preferred Contact Email (Check Typos) <span class="req">*</span></label>
       <input type="email" name="email" placeholder="jane@email.com" autocomplete="email" />
-      <div style="font-size:12.5px;color:var(--gray-500);margin-top:6px;">&#128274; A verification code will be sent to this address. You'll need to enter it to continue.</div>
+      <div class="verify-only" style="font-size:12.5px;color:var(--gray-500);margin-top:6px;">&#128274; A verification code will be sent to this address. You'll need to enter it to continue.</div>
       <div class="err-msg">Please enter a valid email address (make sure it has an "@" and doesn't end in a typo like ".con" or ".co").</div>
     </div>
 
@@ -886,6 +891,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
       <div>
         <div class="card-title">Verify Your Email</div>
         <div class="card-sub">We sent a 6-digit code to <strong id="verifyEmailAddr"></strong>. Enter it below to continue &mdash; this keeps fake or mistyped emails off our list.</div>
+        <div class="demo-only" style="display:none;margin-top:6px;font-size:13px;font-weight:700;color:var(--teal);">Preview mode: no email is sent, enter any 6 digits (e.g. 123456).</div>
       </div>
     </div>
     <div class="field" id="f-verifyCode">
@@ -1066,17 +1072,12 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
     </div>
 
     <div class="notice info">
-      <div>All programs run <strong>indoors</strong> in various schools for <strong>9 weeks</strong>, plus up to 2 additional weeks if a session needs to be postponed.</div>
+      <div>All programs run <strong>indoors</strong> in various schools for <strong>9 weeks</strong>, plus <strong>1 extra week</strong> if a session needs to be postponed.</div>
     </div>
 
     <div class="notice warn">
-      <span class="notice-icon">&#128202;</span>
-      <div>FTLO's Fall 2026 clinic programs are currently <strong>about 90% full</strong> overall. Apply soon to improve your chances of securing your preferred session(s).</div>
-    </div>
-
-    <div class="notice danger">
-      <span class="notice-icon">&#9888;</span>
-      <div><strong>Sept 24, 2026:</strong> Space still available for Wednesday Beginner (Richmond) Clinics, Thursday Women's Intermediate, and maybe Wed/Thu Intermediate clinics. Prorated registrations may be offered if available.</div>
+      <span class="notice-icon">&#127979;</span>
+      <div><strong>Schools come first.</strong> Schools give their own youth and community programs first priority for gym time. Because of this, adult clinics may start a week later than planned, or now and then 10 to 15 minutes late. Once in a while a session gets postponed at the last minute. FTLO will let you know as soon as we hear.</div>
     </div>
 
     <div class="card" style="background:var(--gray-100);border:1px solid var(--gray-200);box-shadow:none;margin-bottom:1.5rem;">
@@ -1117,22 +1118,22 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           </ul>
         </div>
       </div>
-      <div style="font-size:12.5px;color:var(--gray-500);margin-top:12px;line-height:1.6;">Not sure about your skill level? This application's skill quiz can help, or check the <a href="https://www.google.com/search?q=ftlo+volleyball+skill+level+descriptions&amp;rlz=1C1GCEA_enCA1127CA1128&amp;oq=ftlo+volleyball+skill+level+descriptions&amp;gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEJMTA3OTRqMGo3qAIAsAIA&amp;sourceid=chrome&amp;ie=UTF-8" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;">FTLO detailed descriptions</a>, or contact FTLO Coaches before applying. Women's Intermediate follows the same skill expectations as Intermediate, restricted to women.</div>
+      <div style="font-size:12.5px;color:var(--gray-500);margin-top:12px;line-height:1.6;">Not sure about your skill level? This application's skill quiz can help, or check the <a href="https://www.google.com/search?q=ftlo+volleyball+skill+level+descriptions&amp;rlz=1C1GCEA_enCA1127CA1128&amp;oq=ftlo+volleyball+skill+level+descriptions&amp;gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEJMTA3OTRqMGo3qAIAsAIA&amp;sourceid=chrome&amp;ie=UTF-8" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;">FTLO detailed descriptions</a>, or contact FTLO Coaches before applying.</div>
     </div>
 
     <div class="field" id="f-programs">
 
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:0.04em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">2026 September to November Programs</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:0.04em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">Winter 2027 Programs</div>
 
       <div class="acc-wrap">
 
-        <!-- TUESDAY BEG: hidden for now, remove style="display:none" on acc-tue-beg to bring it back -->
-        <div class="acc-block beg-acc" id="acc-tue-beg" style="display:none;">
+        <!-- TUESDAY BEG: McKinney (Richmond) -->
+        <div class="acc-block beg-acc" id="acc-tue-beg">
           <div class="acc-hdr" onclick="accToggle('acc-tue-beg')">
             <div class="acc-tag">BEG</div>
             <div class="acc-meta">
               <div class="acc-title-row"><span class="acc-title">Tuesday &middot; Beginner</span></div>
-              <div class="acc-subdesc">Richmond, BC &middot; $295 GST Included</div>
+              <div class="acc-subdesc">McKinney Elementary, Richmond, BC &middot; $295 GST Included</div>
             </div>
             <div class="acc-right">
               <span class="acc-pill">2 time slots</span>
@@ -1143,17 +1144,17 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
             <div class="acc-body-inner">
               <div class="acc-desc">Build rally-ready confidence through clear instruction in passing, setting, serving, attacking, movement, communication, and rally structure. Sessions emphasize high-volume repetition, confident first contacts, playable second contacts, and controlled game-like practice.</div>
               <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Tuesdays &middot; Sep 15 &ndash; Nov 10 &middot; Ext to Nov 24 if needed</div>
+              <div class="acc-dates">9 Tuesdays &middot; Jan 5 &ndash; Mar 2 &middot; Possible ext. to Mar 9</div>
               <div class="acc-slots-grid">
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday BEG 6:00-7:45 PM" data-code="Tue B 6" data-label="Tuesday &middot; Beginner &middot; 6:00&ndash;7:45 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Tuesday BEG (McKinney) 6:00-7:45 PM" data-code="Tue B 6" data-label="Tuesday &middot; Beginner &middot; McKinney &middot; 6:00&ndash;7:45 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
                   </div>
                 </label>
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday BEG 7:45-9:30 PM" data-code="Tue B 745" data-label="Tuesday &middot; Beginner &middot; 7:45&ndash;9:30 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Tuesday BEG (McKinney) 7:45-9:30 PM" data-code="Tue B 745" data-label="Tuesday &middot; Beginner &middot; McKinney &middot; 7:45&ndash;9:30 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
@@ -1164,54 +1165,16 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           </div>
         </div>
 
-        <!-- WEDNESDAY BEG -->
-        <div class="acc-block beg-acc" id="acc-wed-beg">
-          <div class="acc-hdr" onclick="accToggle('acc-wed-beg')">
-            <div class="acc-tag">BEG</div>
-            <div class="acc-meta">
-              <div class="acc-title-row"><span class="acc-title">Wednesday &middot; Beginner</span></div>
-              <div class="acc-subdesc">Bridge Elementary, Richmond, BC &middot; $295 GST Included</div>
-            </div>
-            <div class="acc-right">
-              <span class="acc-pill">2 time slots</span>
-              <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
-            </div>
-          </div>
-          <div class="acc-body">
-            <div class="acc-body-inner">
-              <div class="acc-desc">Build rally-ready confidence through clear instruction in passing, setting, serving, attacking, movement, communication, and rally structure. Sessions emphasize high-volume repetition, confident first contacts, playable second contacts, and controlled game-like practice.</div>
-              <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Wednesdays &middot; Sep 16 &ndash; Nov 25 &middot; <span class="acc-skip">No clinic Sep 30 &amp; Nov 11.</span> Ext to Dec 9 if needed</div>
-              <div class="acc-slots-grid">
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Wednesday BEG (Richmond) 6:00-7:45 PM" data-code="Wed B 6" data-label="Wednesday &middot; Beginner &middot; 6:00&ndash;7:45 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
-                  </div>
-                </label>
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Wednesday BEG (Richmond) 7:45-9:30 PM" data-code="Wed B 730" data-label="Wednesday &middot; Beginner &middot; 7:45&ndash;9:30 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
-                  </div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TUESDAY FOUNDATION FOCUS -->
+        <!-- TUESDAY FOUNDATION FOCUS: Edmonds (Burnaby) -->
         <div class="acc-block ff-acc" id="acc-tue-ff">
           <div class="acc-hdr" onclick="accToggle('acc-tue-ff')">
             <div class="acc-tag">FF</div>
             <div class="acc-meta">
               <div class="acc-title-row"><span class="acc-title">Tuesday &middot; Foundation Focus: Pass &amp; Attack</span></div>
-              <div class="acc-subdesc">Richmond, BC &amp; South Burnaby, BC &middot; <em>South Burnaby exact location to be confirmed</em> &middot; $255 to $295 GST Included</div>
+              <div class="acc-subdesc">Edmonds Community School, Burnaby, BC &middot; $255 GST Included</div>
             </div>
             <div class="acc-right">
-              <span class="acc-pill">4 time slots</span>
+              <span class="acc-pill">2 time slots</span>
               <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
             </div>
           </div>
@@ -1222,46 +1185,22 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
                 <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#7a5000;margin-bottom:6px;">&#9888; Foundation Focus Placement Expectations (Please Read)</div>
                 <div style="font-size:13px;color:#5a3a00;line-height:1.6;">
                   <p style="margin-bottom:8px;">This clinic's baseline skill requirement is being able to forearm pass 5 out of 10 balls high and back to a partner, off a standard toss from that partner. The nature of group training also requires players with experience in how rallies work and the ability to move in rally situations.</p>
-                  <p style="margin-bottom:8px;">If a participant needs more support with basic first-contact skills, our coaches may recommend transitioning to the Beginner level. If a transfer is necessary or the Beginner level is full, FTLO will offer one of the following:</p>
-                  <ul style="margin:0 0 8px 18px;padding:0;">
-                    <li>A <strong>60% prorated refund</strong> of the remaining sessions, or</li>
-                    <li>A <strong>70% prorated credit</strong> valid for 1 year toward a future FTLO clinic.</li>
-                  </ul>
+                  <p style="margin-bottom:8px;">If a participant needs more support with basic first-contact skills, our coaches may recommend moving to the Beginner level. If that move isn&rsquo;t possible, FTLO will offer a reduced prorated refund.</p>
                   <p style="margin:0;">This helps ensure a supportive and practical experience for all players in the program.</p>
                 </div>
               </div>
               <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Tuesdays &middot; Sep 15 &ndash; Nov 10 &middot; Ext to Nov 24 if needed</div>
-
-              <div style="font-size:12.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#5a3a8c;margin:4px 0 2px;">Richmond, BC &middot; $295 GST Included</div>
+              <div class="acc-dates">9 Tuesdays &middot; Jan 5 &ndash; Mar 2 &middot; Possible ext. to Mar 9</div>
               <div class="acc-slots-grid">
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday FF (Richmond) 6:00-7:45 PM" data-code="Tue FF R 6" data-label="Tuesday &middot; Foundation Focus &middot; Richmond &middot; 6:00&ndash;7:45 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
-                  </div>
-                </label>
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday FF (Richmond) 7:45-9:30 PM" data-code="Tue FF R 745" data-label="Tuesday &middot; Foundation Focus &middot; Richmond &middot; 7:45&ndash;9:30 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
-                  </div>
-                </label>
-              </div>
-
-              <div style="font-size:12.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#5a3a8c;margin:10px 0 2px;">South Burnaby, BC &middot; Location TBD &middot; $255 GST Included</div>
-              <div class="acc-slots-grid">
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday FF (South Burnaby) 6:00-7:30 PM" data-code="Tue FF B 6" data-label="Tuesday &middot; Foundation Focus &middot; South Burnaby &middot; 6:00&ndash;7:30 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Tuesday FF (Edmonds) 6:00-7:30 PM" data-code="Tue FF E 6" data-label="Tuesday &middot; Foundation Focus &middot; Edmonds &middot; 6:00&ndash;7:30 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:30 PM</div>
                   </div>
                 </label>
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Tuesday FF (South Burnaby) 7:30-9:00 PM" data-code="Tue FF B 730" data-label="Tuesday &middot; Foundation Focus &middot; South Burnaby &middot; 7:30&ndash;9:00 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Tuesday FF (Edmonds) 7:30-9:00 PM" data-code="Tue FF E 730" data-label="Tuesday &middot; Foundation Focus &middot; Edmonds &middot; 7:30&ndash;9:00 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:30 &ndash; 9:00 PM</div>
@@ -1272,7 +1211,45 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           </div>
         </div>
 
-        <!-- WEDNESDAY INT -->
+        <!-- WEDNESDAY BEG: Edmonds (Burnaby) -->
+        <div class="acc-block beg-acc" id="acc-wed-beg">
+          <div class="acc-hdr" onclick="accToggle('acc-wed-beg')">
+            <div class="acc-tag">BEG</div>
+            <div class="acc-meta">
+              <div class="acc-title-row"><span class="acc-title">Wednesday &middot; Beginner</span></div>
+              <div class="acc-subdesc">Edmonds Community School, Burnaby, BC &middot; $255 GST Included</div>
+            </div>
+            <div class="acc-right">
+              <span class="acc-pill">2 time slots</span>
+              <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
+            </div>
+          </div>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="acc-desc">Build rally-ready confidence through clear instruction in passing, setting, serving, attacking, movement, communication, and rally structure. Sessions emphasize high-volume repetition, confident first contacts, playable second contacts, and controlled game-like practice.</div>
+              <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
+              <div class="acc-dates">9 Wednesdays &middot; Jan 6 &ndash; Mar 3 &middot; Possible ext. to Mar 10</div>
+              <div class="acc-slots-grid">
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Wednesday BEG (Edmonds) 6:00-7:30 PM" data-code="Wed B 6" data-label="Wednesday &middot; Beginner &middot; Edmonds &middot; 6:00&ndash;7:30 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
+                  <div class="acc-prog-body">
+                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:30 PM</div>
+                  </div>
+                </label>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Wednesday BEG (Edmonds) 7:30-9:00 PM" data-code="Wed B 730" data-label="Wednesday &middot; Beginner &middot; Edmonds &middot; 7:30&ndash;9:00 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
+                  <div class="acc-prog-body">
+                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:30 &ndash; 9:00 PM</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEDNESDAY INT: Lochdale (Burnaby) -->
         <div class="acc-block int-acc" id="acc-wed-int">
           <div class="acc-hdr" onclick="accToggle('acc-wed-int')">
             <div class="acc-tag">INT</div>
@@ -1292,26 +1269,22 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
                 <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#7a5000;margin-bottom:6px;">&#9888; Intermediate Placement Expectations (Please Read)</div>
                 <div style="font-size:13px;color:#5a3a00;line-height:1.6;">
                   <p style="margin-bottom:8px;">Our Intermediate clinics are designed for participants who can consistently perform foundational first and second contact skills, passing and setting within a target (at least 3&ndash;4 out of 5 reps during controlled drills), and developing rally-ready consistency.</p>
-                  <p style="margin-bottom:8px;">If a participant requires more support with basic first-contact skills, our coaches may recommend transitioning to the Beginner level. If a transfer is necessary or the Beginner level is full, FTLO will offer one of the following:</p>
-                  <ul style="margin:0 0 8px 18px;padding:0;">
-                    <li>A <strong>60% prorated refund</strong> of the remaining sessions, or</li>
-                    <li>A <strong>70% prorated credit</strong> valid for 1 year toward a future FTLO clinic.</li>
-                  </ul>
+                  <p style="margin-bottom:8px;">If a participant needs more support with basic first-contact skills, our coaches may recommend moving to Foundation Focus or Beginner. If that move isn&rsquo;t possible, FTLO will offer a reduced prorated refund.</p>
                   <p style="margin:0;">This helps ensure a supportive and practical experience for all players in the program.</p>
                 </div>
               </div>
               <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Wednesdays &middot; Sep 16 &ndash; Nov 25 &middot; <span class="acc-skip">No clinic Sep 30 &amp; Nov 11.</span> Ext to Dec 9 if needed</div>
+              <div class="acc-dates">9 Wednesdays &middot; Jan 6 &ndash; Mar 3 &middot; Possible ext. to Mar 10</div>
               <div class="acc-slots-grid">
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Wednesday INT (Lochdale) 6:00-7:30 PM" data-code="Wed I 6" data-label="Wednesday &middot; Intermediate &middot; 6:00&ndash;7:30 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Wednesday INT (Lochdale) 6:00-7:30 PM" data-code="Wed I 6" data-label="Wednesday &middot; Intermediate &middot; Lochdale &middot; 6:00&ndash;7:30 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:30 PM</div>
                   </div>
                 </label>
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Wednesday INT (Lochdale) 7:30-9:00 PM" data-code="Wed I 730" data-label="Wednesday &middot; Intermediate &middot; 7:30&ndash;9:00 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Wednesday INT (Lochdale) 7:30-9:00 PM" data-code="Wed I 730" data-label="Wednesday &middot; Intermediate &middot; Lochdale &middot; 7:30&ndash;9:00 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:30 &ndash; 9:00 PM</div>
@@ -1322,7 +1295,53 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           </div>
         </div>
 
-        <!-- THURSDAY INT -->
+        <!-- THURSDAY FOUNDATION FOCUS: Whiteside (Richmond) -->
+        <div class="acc-block ff-acc" id="acc-thu-ff">
+          <div class="acc-hdr" onclick="accToggle('acc-thu-ff')">
+            <div class="acc-tag">FF</div>
+            <div class="acc-meta">
+              <div class="acc-title-row"><span class="acc-title">Thursday &middot; Foundation Focus: Pass &amp; Attack</span></div>
+              <div class="acc-subdesc">Whiteside Elementary, Richmond, BC &middot; $295 GST Included</div>
+            </div>
+            <div class="acc-right">
+              <span class="acc-pill">2 time slots</span>
+              <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
+            </div>
+          </div>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="acc-desc">Develop more consistent passing and attacking through high-volume technical drills, with less emphasis on extended gameplay. Training focuses on platform control, overhead contact, and adjusting to various speeds and ball trajectories.</div>
+              <div style="background:var(--orange-light);border:2px solid var(--orange);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:4px;">
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#7a5000;margin-bottom:6px;">&#9888; Foundation Focus Placement Expectations (Please Read)</div>
+                <div style="font-size:13px;color:#5a3a00;line-height:1.6;">
+                  <p style="margin-bottom:8px;">This clinic's baseline skill requirement is being able to forearm pass 5 out of 10 balls high and back to a partner, off a standard toss from that partner. The nature of group training also requires players with experience in how rallies work and the ability to move in rally situations.</p>
+                  <p style="margin-bottom:8px;">If a participant needs more support with basic first-contact skills, our coaches may recommend moving to the Beginner level. If that move isn&rsquo;t possible, FTLO will offer a reduced prorated refund.</p>
+                  <p style="margin:0;">This helps ensure a supportive and practical experience for all players in the program.</p>
+                </div>
+              </div>
+              <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
+              <div class="acc-dates">9 Thursdays &middot; Jan 7 &ndash; Mar 4 &middot; Possible ext. to Mar 11</div>
+              <div class="acc-slots-grid">
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Thursday FF (Whiteside) 6:00-7:45 PM" data-code="Thu FF 6" data-label="Thursday &middot; Foundation Focus &middot; Whiteside &middot; 6:00&ndash;7:45 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
+                  <div class="acc-prog-body">
+                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
+                  </div>
+                </label>
+                <label class="acc-prog" onclick="accProg(this)">
+                  <input type="checkbox" name="programs" value="Thursday FF (Whiteside) 7:45-9:30 PM" data-code="Thu FF 745" data-label="Thursday &middot; Foundation Focus &middot; Whiteside &middot; 7:45&ndash;9:30 PM" style="display:none;" />
+                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
+                  <div class="acc-prog-body">
+                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THURSDAY INT: Lochdale (Burnaby) -->
         <div class="acc-block int-acc" id="acc-thu-int">
           <div class="acc-hdr" onclick="accToggle('acc-thu-int')">
             <div class="acc-tag">INT</div>
@@ -1342,79 +1361,25 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
                 <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#7a5000;margin-bottom:6px;">&#9888; Intermediate Placement Expectations (Please Read)</div>
                 <div style="font-size:13px;color:#5a3a00;line-height:1.6;">
                   <p style="margin-bottom:8px;">Our Intermediate clinics are designed for participants who can consistently perform foundational first and second contact skills, passing and setting within a target (at least 3&ndash;4 out of 5 reps during controlled drills), and developing rally-ready consistency.</p>
-                  <p style="margin-bottom:8px;">If a participant requires more support with basic first-contact skills, our coaches may recommend transitioning to the Beginner level. If a transfer is necessary or the Beginner level is full, FTLO will offer one of the following:</p>
-                  <ul style="margin:0 0 8px 18px;padding:0;">
-                    <li>A <strong>60% prorated refund</strong> of the remaining sessions, or</li>
-                    <li>A <strong>70% prorated credit</strong> valid for 1 year toward a future FTLO clinic.</li>
-                  </ul>
+                  <p style="margin-bottom:8px;">If a participant needs more support with basic first-contact skills, our coaches may recommend moving to Foundation Focus or Beginner. If that move isn&rsquo;t possible, FTLO will offer a reduced prorated refund.</p>
                   <p style="margin:0;">This helps ensure a supportive and practical experience for all players in the program.</p>
                 </div>
               </div>
               <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Thursdays &middot; Sep 17 &ndash; Nov 12 &middot; Ext to Nov 26 if needed</div>
+              <div class="acc-dates">9 Thursdays &middot; Jan 7 &ndash; Mar 11 &middot; <span class="acc-skip">No clinic Mar 4.</span> No extension week available</div>
               <div class="acc-slots-grid">
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Thursday INT (Lochdale) 6:00-7:30 PM" data-code="Thu I 6" data-label="Thursday &middot; Intermediate &middot; 6:00&ndash;7:30 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Thursday INT (Lochdale) 6:00-7:30 PM" data-code="Thu I 6" data-label="Thursday &middot; Intermediate &middot; Lochdale &middot; 6:00&ndash;7:30 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:30 PM</div>
                   </div>
                 </label>
                 <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Thursday INT (Lochdale) 7:30-9:00 PM" data-code="Thu I 730" data-label="Thursday &middot; Intermediate &middot; 7:30&ndash;9:00 PM" style="display:none;" />
+                  <input type="checkbox" name="programs" value="Thursday INT (Lochdale) 7:30-9:00 PM" data-code="Thu I 730" data-label="Thursday &middot; Intermediate &middot; Lochdale &middot; 7:30&ndash;9:00 PM" style="display:none;" />
                   <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
                   <div class="acc-prog-body">
                     <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:30 &ndash; 9:00 PM</div>
-                  </div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- THURSDAY WOMEN'S INT -->
-        <div class="acc-block wmn-acc" id="acc-thu-wmn">
-          <div class="acc-hdr" onclick="accToggle('acc-thu-wmn')">
-            <div class="acc-tag">WMN</div>
-            <div class="acc-meta">
-              <div class="acc-title-row"><span class="acc-title">Thursday &middot; Women's Intermediate</span></div>
-              <div class="acc-subdesc">Women's only &middot; Richmond, BC &middot; $295 GST Included</div>
-            </div>
-            <div class="acc-right">
-              <span class="acc-pill">2 time slots</span>
-              <div class="acc-chev"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg></div>
-            </div>
-          </div>
-          <div class="acc-body">
-            <div class="acc-body-inner">
-              <div class="acc-desc">Improve serving, passing, attacking, transitions, and all-position competency at a faster, more competitive pace. Sessions emphasize multi-touch drills, court spacing, role awareness, rally reading, and tactical decision-making.</div>
-              <div style="background:var(--orange-light);border:2px solid var(--orange);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:4px;">
-                <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#7a5000;margin-bottom:6px;">&#9888; Intermediate Placement Expectations (Please Read)</div>
-                <div style="font-size:13px;color:#5a3a00;line-height:1.6;">
-                  <p style="margin-bottom:8px;">Our Intermediate clinics are designed for participants who can consistently perform foundational first and second contact skills, passing and setting within a target (at least 3&ndash;4 out of 5 reps during controlled drills), and developing rally-ready consistency.</p>
-                  <p style="margin-bottom:8px;">If a participant requires more support with basic first-contact skills, our coaches may recommend transitioning to the Beginner level. If a transfer is necessary or the Beginner level is full, FTLO will offer one of the following:</p>
-                  <ul style="margin:0 0 8px 18px;padding:0;">
-                    <li>A <strong>60% prorated refund</strong> of the remaining sessions, or</li>
-                    <li>A <strong>70% prorated credit</strong> valid for 1 year toward a future FTLO clinic.</li>
-                  </ul>
-                  <p style="margin:0;">This helps ensure a supportive and practical experience for all players in the program.</p>
-                </div>
-              </div>
-              <div class="acc-note">Training for this clinic will be on 3 smaller-sized courts, appropriate for 3v3 or 4v4, co-ed height of 2.35m.</div>
-              <div class="acc-dates">9 Thursdays &middot; Sep 17 &ndash; Nov 12 &middot; Ext to Nov 26 if needed</div>
-              <div class="acc-slots-grid">
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Thursday WOMENS INT (Richmond) 6:00-7:45 PM" data-code="Thu IW 6" data-label="Thursday &middot; Women's Intermediate &middot; 6:00&ndash;7:45 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 1</span>6:00 &ndash; 7:45 PM</div>
-                  </div>
-                </label>
-                <label class="acc-prog" onclick="accProg(this)">
-                  <input type="checkbox" name="programs" value="Thursday WOMENS INT (Richmond) 7:45-9:30 PM" data-code="Thu IW 745" data-label="Thursday &middot; Women's Intermediate &middot; 7:45&ndash;9:30 PM" style="display:none;" />
-                  <div class="acc-cb"><span class="acc-cb-tick">&#10003;</span></div>
-                  <div class="acc-prog-body">
-                    <div class="acc-prog-title"><span class="acc-slot-label">Time Slot 2</span>7:45 &ndash; 9:30 PM</div>
                   </div>
                 </label>
               </div>
@@ -1474,7 +1439,8 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
         <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin:12px 0 6px;">Postponements</h4>
         <p>If FTLO deems facility conditions unsafe or unsuitable for training (including school closures), sessions will be postponed and rescheduled on the same weekday of a future week. Participants will be notified by email as soon as possible.</p>
-        <p><strong>Postponed and Replacement of Sessions Window:</strong> Fall Programs may be extended by up to <strong>2 additional weeks</strong> beyond the original schedule to accommodate postponed sessions. No make-up sessions will be offered beyond this extension.</p>
+        <p><strong>School Facility Priority:</strong> Schools give their own youth and community programs first priority for gym time. Because of this, adult clinics may start a week later than planned, or now and then 10 to 15 minutes late. Once in a while a session gets postponed at the last minute. FTLO will let you know as soon as we hear.</p>
+        <p><strong>Postponed and Replacement of Sessions Window (Winter 2027 amendment):</strong> Winter 2027 programs may be extended by <strong>1 additional week only</strong> beyond the original schedule to accommodate postponed sessions. No make-up sessions will be offered beyond this extension.</p>
         <p>FTLO aims to deliver the full number of scheduled sessions within this extended period. While we strive to meet that goal, participants acknowledge that postponements are possible, and that FTLO&rsquo;s make-up window represents a reasonable accommodation.</p>
 
         <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin:12px 0 6px;">Availability</h4>
@@ -1488,7 +1454,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
         <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin:12px 0 6px;">Medical or Training Concerns</h4>
         <p>Participants are encouraged to share any medical condition and/or training limitations to the FTLO coaches on the application form. (ie. Relevant past injuries, allergies, medication taken, concussion history, month/year of injuries)</p>
-        <p><strong>Intermediate Clinic Placement Expectations:</strong> See the full placement criteria and refund/credit options under each Intermediate program in Step 3, Programs of Interest.</p>
+        <p><strong>Clinic Placement Expectations:</strong> See the placement criteria under each Foundation Focus and Intermediate program in Step 3, Programs of Interest.</p>
         <p>All other inquiries: info@ftlovolleyball.ca or <a href="https://www.ftlovolleyball.ca/policies" target="_blank" style="color:var(--teal);font-weight:600;">ftlovolleyball.ca/policies</a></p>
       </div>
 
@@ -1501,6 +1467,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
           <p style="margin-bottom:8px;"><strong>No refund will be issued after the program start date.</strong> Participants can assign their registration to another adult as a replacement.</p>
           <p style="margin-bottom:8px;"><strong>Refunds for Incomplete Programs:</strong> FTLO is committed to delivering the full number of sessions in each training program within the extended schedule. If, despite this buffer, more than one session remains incomplete by the end of the season, prorated refunds will be issued based on the number of sessions owed.</p>
           <p><strong>Participatory Suitability:</strong> FTLO reserves the right to decline and/or refund a participant&rsquo;s registration payment if the participant is deemed not suitable for the playing environment. This will be communicated via a case-by-case matter.</p>
+          <p style="margin-top:8px;"><strong>Clinic Fit:</strong> If FTLO coaches find a clinic isn&rsquo;t the right fit for a participant&rsquo;s skill level and a move to another clinic isn&rsquo;t possible, a reduced prorated refund will be issued.</p>
         </div>
       </div>
 
@@ -1639,9 +1606,9 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
   <div style="background:#fff;border:2px solid var(--gray-300);border-radius:var(--radius-sm);padding:1rem 1.25rem;max-width:520px;margin:1.25rem auto 0;text-align:left;">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Registration Timeline</div>
     <ul style="margin:0 0 0 18px;padding:0;font-size:14px;color:var(--gray-700);line-height:1.7;">
-      <li>First Round applicants will be contacted after <strong>July 20</strong> to pay and accept their training spot.</li>
-      <li>Public invitation to apply opens after <strong>July 23</strong>.</li>
-      <li>Second Round registration payment invites go out after <strong>July 24, 2026</strong>.</li>
+      <li>First Round applicants will be contacted before <strong>November 3</strong> to pay and accept their training spot.</li>
+      <li>Second Round registration payment invites go out before <strong>November 12, 2026</strong>.</li>
+      <li>Other timelines to be announced.</li>
       <li>Waitlisted applicants will be contacted when a spot becomes available.</li>
     </ul>
   </div>
@@ -1763,6 +1730,62 @@ var usedEmails = [];
 // the Fall 2026 deployment as a placeholder, submissions won't go anywhere
 // useful until it's swapped.
 var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3V_4F4r7Z118884dACi0bT9ynnM73TH5pjW1SW6TX9s8BVEhAqX75aqzS_MpQ_pSzSQ/exec';
+
+// ── DEMO MODE ─────────────────────────────────────────────────────────────
+// While true, the page never contacts Apps Script: every backend call is
+// answered locally with a fake success, so the form can be clicked through
+// end to end as a preview without anything landing in the sheet or any
+// email going out. The access password is checked in the browser against
+// DEMO_PASSWORD_SHA256 instead of server-side. That's a deterrent only,
+// the page source (programs, prices) is still readable by anyone who
+// opens it. Set to false for the real launch.
+var DEMO_MODE = true;
+// Off for the demo so testers go straight from Contact to the quiz. The
+// live Apps Script rejects submissions from unverified emails
+// (reason: not_verified), so turn this back on before launch unless that
+// check is removed server-side too.
+var REQUIRE_EMAIL_VERIFICATION = false;
+var DEMO_PASSWORD_SHA256 = 'de6b82855ccf4a9ac3da1a81e2ff1e5760977702bc8b28054e7c89b069205926';
+
+if (!REQUIRE_EMAIL_VERIFICATION) {
+  document.querySelectorAll('.verify-only').forEach(function(el) { el.style.display = 'none'; });
+}
+
+function sha256Hex(text) {
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function(buf) {
+    return Array.prototype.map.call(new Uint8Array(buf), function(b) {
+      return ('0' + b.toString(16)).slice(-2);
+    }).join('');
+  });
+}
+
+if (DEMO_MODE) {
+  // Intercept fetch() for the Apps Script URL only and fake each action's
+  // response, so none of the call sites below need demo-specific branches.
+  var realFetch = window.fetch.bind(window);
+  window.fetch = function(url, opts) {
+    if (typeof url !== 'string' || url.indexOf(APPS_SCRIPT_URL) !== 0) return realFetch(url, opts);
+    var params = new URLSearchParams(url.split('?')[1] || '');
+    var action = params.get('action');
+    var reply = action === 'checkAccess'
+      ? sha256Hex(params.get('password') || '').then(function(h) { return { valid: h === DEMO_PASSWORD_SHA256 }; })
+      : Promise.resolve({
+          checkEmail: { exists: false },
+          sendVerificationCode: { status: 'ok' },
+          verifyCode: { verified: true },
+          markStarted: { status: 'ok' }
+        }[action] || { status: 'ok' });
+    return reply.then(function(json) {
+      return new Promise(function(resolve) {
+        // Short delay so buttons show their "Checking..." states like the real thing.
+        setTimeout(function() { resolve(new Response(JSON.stringify(json))); }, 600);
+      });
+    });
+  };
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.demo-only').forEach(function(el) { el.style.display = 'block'; });
+  });
+}
 
 function submitAccessPassword() {
   var input = document.getElementById('accessPasswordInput');
@@ -1935,8 +1958,11 @@ function calculateClinicRecommendation(a) {
   return 'BEG/FF';
 }
 
+// Women's Intermediate isn't offered in Winter 2027; flip back on when it returns.
+var WOMENS_PROGRAM_OFFERED = false;
+
 function getRecommendationDisplay(rec, gender) {
-  var eligibleWomens = (gender === 'Female');
+  var eligibleWomens = WOMENS_PROGRAM_OFFERED && (gender === 'Female');
 
   if (rec === 'BEG') {
     return {
@@ -2051,7 +2077,7 @@ function renderRecommendationBanner(rec, answers) {
   banner.style.display = 'flex';
 
   // Exported value: dynamic INT/INT(W) label when the applicant is eligible for Women's
-  clinicRecommendationValue = (rec === 'INT' && gender === 'Female') ? 'INT/INT(W)' : rec;
+  clinicRecommendationValue = (rec === 'INT' && WOMENS_PROGRAM_OFFERED && gender === 'Female') ? 'INT/INT(W)' : rec;
 }
 
 function nextFromQuiz() {
@@ -2125,6 +2151,11 @@ function submitForm() {
   document.getElementById('submitErrorNotice').style.display = 'none';
 
   var data = collectData();
+
+  if (DEMO_MODE) {
+    setTimeout(function() { handleSubmitResponse(JSON.stringify({ status: 'ok' })); }, 1200);
+    return;
+  }
 
   // Use XMLHttpRequest - most compatible with Google Apps Script
   var xhr = new XMLHttpRequest();
@@ -2235,6 +2266,11 @@ function checkEmailThenNext() {
         btn.disabled = false;
         btn.innerHTML = STEP1_BTN_LABEL;
         markErr('f-email', 'This email has already been submitted. Each person may only apply once. Please contact info@ftlovolleyball.ca if you need help.');
+      } else if (!REQUIRE_EMAIL_VERIFICATION) {
+        btn.disabled = false;
+        btn.innerHTML = STEP1_BTN_LABEL;
+        markApplicationStarted();
+        showStep(2);
       } else {
         startEmailVerification(email);
       }
@@ -2243,6 +2279,13 @@ function checkEmailThenNext() {
       // Duplicate check itself failed to reach the server - still require
       // verification below rather than silently letting an unverified
       // email straight through.
+      if (!REQUIRE_EMAIL_VERIFICATION) {
+        btn.disabled = false;
+        btn.innerHTML = STEP1_BTN_LABEL;
+        markApplicationStarted();
+        showStep(2);
+        return;
+      }
       startEmailVerification(email);
     });
 }
