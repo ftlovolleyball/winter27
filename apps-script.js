@@ -111,22 +111,22 @@ var ACCESS_OK_TTL_SECONDS = 10800; // 3 hours
 // the confirmation email, and to resolve the applicant's priority codes
 // back into full program details.
 var PROGRAM_CATALOG = [
-  { code: 'Tue FF R 6', value: 'Tuesday FF (McKinney) 6:00-7:45 PM', label: 'Tuesday · Foundation Focus · McKinney · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'RICH. Tue FF 6-745' },
-  { code: 'Tue FF R 745', value: 'Tuesday FF (McKinney) 7:45-9:30 PM', label: 'Tuesday · Foundation Focus · McKinney · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'RICH. Tue FF 745-930' },
-  { code: 'Tue FF E 6', value: 'Tuesday FF (Edmonds) 6:00-7:30 PM', label: 'Tuesday · Foundation Focus · Edmonds · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'EDM. Tue FF 6-730' },
-  { code: 'Tue FF E 730', value: 'Tuesday FF (Edmonds) 7:30-9:00 PM', label: 'Tuesday · Foundation Focus · Edmonds · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'EDM. Tue FF 730-9' },
+  { code: 'Tue B 6', value: 'Tuesday BEG (McKinney) 6:00-7:45 PM', label: 'Tuesday · Beginner · McKinney · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue Beg', shortLabel: 'Tue Beg 6-745' },
+  { code: 'Tue B 745', value: 'Tuesday BEG (McKinney) 7:45-9:30 PM', label: 'Tuesday · Beginner · McKinney · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue Beg', shortLabel: 'Tue Beg 745-930' },
+  { code: 'Tue FF E 6', value: 'Tuesday FF (Edmonds) 6:00-7:30 PM', label: 'Tuesday · Foundation Focus · Edmonds · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'Tue FF 6-730' },
+  { code: 'Tue FF E 730', value: 'Tuesday FF (Edmonds) 7:30-9:00 PM', label: 'Tuesday · Foundation Focus · Edmonds · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Tuesdays · Jan 5 – Mar 2 (possible ext. to Mar 9)', column: 'Tue FF', shortLabel: 'Tue FF 730-9' },
   { code: 'Wed B 6', value: 'Wednesday BEG (Edmonds) 6:00-7:30 PM', label: 'Wednesday · Beginner · Edmonds · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Beg', shortLabel: 'Wed Beg 6-730' },
   { code: 'Wed B 730', value: 'Wednesday BEG (Edmonds) 7:30-9:00 PM', label: 'Wednesday · Beginner · Edmonds · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Beg', shortLabel: 'Wed Beg 730-9' },
   { code: 'Wed I 6', value: 'Wednesday INT (Lochdale) 6:00-7:30 PM', label: 'Wednesday · Intermediate · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Int', shortLabel: 'Wed Int 6-730' },
   { code: 'Wed I 730', value: 'Wednesday INT (Lochdale) 7:30-9:00 PM', label: 'Wednesday · Intermediate · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Wednesdays · Jan 6 – Mar 3 (possible ext. to Mar 10)', column: 'Wed Int', shortLabel: 'Wed Int 730-9' },
-  { code: 'Thu B 6', value: 'Thursday BEG (Whiteside) 6:00-7:45 PM', label: 'Thursday · Beginner · Whiteside · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu Beg', shortLabel: 'Thu Beg 6-745' },
-  { code: 'Thu B 745', value: 'Thursday BEG (Whiteside) 7:45-9:30 PM', label: 'Thursday · Beginner · Whiteside · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu Beg', shortLabel: 'Thu Beg 745-930' },
+  { code: 'Thu FF 6', value: 'Thursday FF (Whiteside) 6:00-7:45 PM', label: 'Thursday · Foundation Focus · Whiteside · 6:00–7:45 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu FF', shortLabel: 'Thu FF 6-745' },
+  { code: 'Thu FF 745', value: 'Thursday FF (Whiteside) 7:45-9:30 PM', label: 'Thursday · Foundation Focus · Whiteside · 7:45–9:30 PM', price: '$295 GST Included', dates: '9 Thursdays · Jan 7 – Mar 4 (possible ext. to Mar 11)', column: 'Thu FF', shortLabel: 'Thu FF 745-930' },
   { code: 'Thu I 6', value: 'Thursday INT (Lochdale) 6:00-7:30 PM', label: 'Thursday · Intermediate · Lochdale · 6:00–7:30 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 6-730' },
   { code: 'Thu I 730', value: 'Thursday INT (Lochdale) 7:30-9:00 PM', label: 'Thursday · Intermediate · Lochdale · 7:30–9:00 PM', price: '$255 GST Included', dates: '9 Thursdays · Jan 7 – Mar 11 (no clinic Mar 4; no extension week available)', column: 'Thu Int', shortLabel: 'Thu Int 730-9' }
 ];
 
 // The sheet columns, one per program card, in the order they should appear.
-var PROGRAM_COLUMNS = ['Tue FF', 'Wed Beg', 'Wed Int', 'Thu Beg', 'Thu Int'];
+var PROGRAM_COLUMNS = ['Tue Beg', 'Tue FF', 'Wed Beg', 'Wed Int', 'Thu FF', 'Thu Int'];
 
 function doPost(e) {
   var data = JSON.parse(e.postData.contents);
